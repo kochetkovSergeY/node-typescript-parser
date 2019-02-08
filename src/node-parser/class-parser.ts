@@ -11,11 +11,11 @@ import {
 import { GetterDeclaration, SetterDeclaration } from '../declarations/AccessorDeclaration';
 import { ClassDeclaration as TshClass } from '../declarations/ClassDeclaration';
 import { ConstructorDeclaration as TshConstructor } from '../declarations/ConstructorDeclaration';
+import { DecoratorDeclaration as TshDecorator } from '../declarations/DecoratorDeclaration';
 import { DefaultDeclaration as TshDefault } from '../declarations/DefaultDeclaration';
 import { MethodDeclaration as TshMethod } from '../declarations/MethodDeclaration';
 import { ParameterDeclaration as TshParameter } from '../declarations/ParameterDeclaration';
 import { PropertyDeclaration as TshProperty } from '../declarations/PropertyDeclaration';
-import { DecoratorDeclaration as TshDecorator } from '../declarations/DecoratorDeclaration';
 import { Resource } from '../resources/Resource';
 import {
     isArrayBindingPattern,
@@ -69,7 +69,7 @@ export function parseDecorators(node: Node): TshDecorator[] {
     if (node.decorators) {
         decorators = node.decorators.map((param) => {
             const args = (<any>param.expression).arguments;
-            const parameters: string[] = args.map((arg) => {
+            const parameters: string[] = args.map((arg: any) => {
                 return arg.text ? arg.text : arg.getText();
             });
             const tshDecorator = new TshDecorator((<any>param.expression).expression.getText());
@@ -176,8 +176,8 @@ export function parseClass(tsResource: Resource, node: ClassDeclaration): void {
                     (o.name as Identifier).text,
                     getNodeVisibility(o),
                     getNodeType(o.type),
-                            !!o.questionToken,
-                            containsModifier(o, SyntaxKind.StaticKeyword),
+                    !!o.questionToken,
+                    containsModifier(o, SyntaxKind.StaticKeyword),
                     o.getStart(),
                     o.getEnd(),
                 );
@@ -189,8 +189,6 @@ export function parseClass(tsResource: Resource, node: ClassDeclaration): void {
                 if (actualCount === classDeclaration.properties.length) {
                     classDeclaration.properties.push(
                         tshProperty,
-                            !!o.questionToken,
-                            containsModifier(o, SyntaxKind.StaticKeyword),
                     );
                 }
                 if (o.decorators) {
