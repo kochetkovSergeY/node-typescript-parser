@@ -1,0 +1,227 @@
+Index: src/declarations/ClassDeclaration.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/declarations/ClassDeclaration.ts	(revision ec573e61a9a9b94657990764eeb57df9c83d807e)
++++ src/declarations/ClassDeclaration.ts	(date 1519723858736)
+@@ -3,6 +3,7 @@
+ import { ClassLikeDeclaration, ExportableDeclaration, GenericDeclaration } from './Declaration';
+ import { MethodDeclaration } from './MethodDeclaration';
+ import { PropertyDeclaration } from './PropertyDeclaration';
++import { DecoratorDeclaration } from './DecoratorDeclaration';
+ 
+ /**
+  * Class declaration that contains methods, properties and a constructor
+@@ -16,6 +17,7 @@
+ export class ClassDeclaration implements ClassLikeDeclaration, ExportableDeclaration, GenericDeclaration {
+     public ctor: ConstructorDeclaration;
+     public accessors: AccessorDeclaration[] = [];
++    public decorators: DecoratorDeclaration[] = [];
+     public properties: PropertyDeclaration[] = [];
+     public methods: MethodDeclaration[] = [];
+     public typeParameters: string[] | undefined;
+Index: src/declarations/DecoratorDeclaration.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/declarations/DecoratorDeclaration.ts	(date 1519735408657)
++++ src/declarations/DecoratorDeclaration.ts	(date 1519735408657)
+@@ -0,0 +1,16 @@
++import {Declaration} from './Declaration';
++
++/**
++ * Alias declaration that can be exported. Is used to defined types.
++ * (e.g. type Foobar = { name: string };)
++ *
++ * @export
++ * @class DecoratorDeclaration
++ * @implements {ExportableDeclaration}
++ */
++export class DecoratorDeclaration implements Declaration {
++    public parameters: string[] = [];
++
++    constructor(public name: string) {
++    }
++}
+Index: src/declarations/MethodDeclaration.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/declarations/MethodDeclaration.ts	(revision ec573e61a9a9b94657990764eeb57df9c83d807e)
++++ src/declarations/MethodDeclaration.ts	(date 1519736320930)
+@@ -2,6 +2,7 @@
+ import { DeclarationVisibility } from './DeclarationVisibility';
+ import { ParameterDeclaration } from './ParameterDeclaration';
+ import { VariableDeclaration } from './VariableDeclaration';
++import {DecoratorDeclaration} from "./DecoratorDeclaration";
+ 
+ /**
+  * Method declaration. A method is contained in an interface or a class.
+@@ -14,6 +15,7 @@
+  * @implements {TypedDeclaration}
+  */
+ export class MethodDeclaration implements AbstractDeclaration, CallableDeclaration, ScopedDeclaration, TypedDeclaration {
++    public decorators: DecoratorDeclaration[] = [];
+     public parameters: ParameterDeclaration[] = [];
+     public variables: VariableDeclaration[] = [];
+ 
+Index: src/declarations/PropertyDeclaration.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/declarations/PropertyDeclaration.ts	(revision ec573e61a9a9b94657990764eeb57df9c83d807e)
++++ src/declarations/PropertyDeclaration.ts	(date 1519723108463)
+@@ -1,5 +1,6 @@
+-import { ScopedDeclaration, TypedDeclaration } from './Declaration';
+-import { DeclarationVisibility } from './DeclarationVisibility';
++import {ScopedDeclaration, TypedDeclaration} from './Declaration';
++import {DeclarationVisibility} from './DeclarationVisibility';
++import {DecoratorDeclaration} from './DecoratorDeclaration';
+ 
+ /**
+  * Property declaration that contains its visibility.
+@@ -10,6 +11,7 @@
+  * @implements {TypedDeclaration}
+  */
+ export class PropertyDeclaration implements ScopedDeclaration, TypedDeclaration {
++    public decorators: DecoratorDeclaration[] = [];
+     constructor(
+         public name: string,
+         public visibility: DeclarationVisibility | undefined,
+Index: src/node-parser/class-parser.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/node-parser/class-parser.ts	(revision ec573e61a9a9b94657990764eeb57df9c83d807e)
++++ src/node-parser/class-parser.ts	(date 1519736466117)
+@@ -9,26 +9,27 @@
+     SyntaxKind,
+ } from 'typescript';
+ 
+-import { GetterDeclaration, SetterDeclaration } from '../declarations/AccessorDeclaration';
+-import { ClassDeclaration as TshClass } from '../declarations/ClassDeclaration';
+-import { ConstructorDeclaration as TshConstructor } from '../declarations/ConstructorDeclaration';
+-import { DefaultDeclaration as TshDefault } from '../declarations/DefaultDeclaration';
+-import { MethodDeclaration as TshMethod } from '../declarations/MethodDeclaration';
+-import { ParameterDeclaration as TshParameter } from '../declarations/ParameterDeclaration';
+-import { PropertyDeclaration as TshProperty } from '../declarations/PropertyDeclaration';
+-import { Resource } from '../resources/Resource';
++import {GetterDeclaration, SetterDeclaration} from '../declarations/AccessorDeclaration';
++import {ClassDeclaration as TshClass} from '../declarations/ClassDeclaration';
++import {ConstructorDeclaration as TshConstructor} from '../declarations/ConstructorDeclaration';
++import {DefaultDeclaration as TshDefault} from '../declarations/DefaultDeclaration';
++import {MethodDeclaration as TshMethod} from '../declarations/MethodDeclaration';
++import {ParameterDeclaration as TshParameter} from '../declarations/ParameterDeclaration';
++import {PropertyDeclaration as TshProperty} from '../declarations/PropertyDeclaration';
++import {DecoratorDeclaration as TshDecorator} from '../declarations/DecoratorDeclaration';
++import {Resource} from '../resources/Resource';
+ import {
+     isArrayBindingPattern,
+     isConstructorDeclaration,
++    isGetAccessorDeclaration,
+     isIdentifier,
+     isMethodDeclaration,
+     isObjectBindingPattern,
+     isPropertyDeclaration,
+-    isGetAccessorDeclaration,
+     isSetAccessorDeclaration,
+ } from '../type-guards/TypescriptGuards';
+-import { parseFunctionParts, parseMethodParams } from './function-parser';
+-import { parseIdentifier } from './identifier-parser';
++import {parseFunctionParts, parseMethodParams} from './function-parser';
++import {parseIdentifier} from './identifier-parser';
+ import {
+     getDefaultResourceIdentifier,
+     getNodeType,
+@@ -57,6 +58,28 @@
+     }
+ }
+ 
++/**
++ * Parses decorators
++ *
++ * @export
++ * @param {Node} node
++ */
++export function parseDecorators(node: Node): TshDecorator[] {
++    let decorators: TshDecorator[] = [];
++    if (node.decorators) {
++        decorators = node.decorators.map((param) => {
++            const args = (<any>param.expression).arguments;
++            const parameters: string[] = args.map((arg) => {
++                return arg.text ? arg.text : arg.getText();
++            });
++            const tshDecorator = new TshDecorator((<any>param.expression).expression.getText());
++            tshDecorator.parameters = parameters;
++            return tshDecorator;
++        });
++    }
++    return decorators;
++}
++
+ /**
+  * Parse information about a constructor. Contains parameters and used modifiers
+  * (i.e. constructor(private name: string)).
+@@ -128,31 +151,33 @@
+         classDeclaration.typeParameters = node.typeParameters.map(param => param.getText());
+     }
+ 
++    if (node.decorators) {
++        classDeclaration.decorators = parseDecorators(node);
++    }
++
+     if (node.members) {
+         node.members.forEach((o) => {
+             if (isPropertyDeclaration(o)) {
+                 const actualCount = classDeclaration.properties.length;
+-                if (o.modifiers) {
+-                    classDeclaration.properties.push(
+-                        new TshProperty(
+-                            (o.name as Identifier).text,
+-                            getNodeVisibility(o),
+-                            getNodeType(o.type),
+-                            o.getStart(),
+-                            o.getEnd(),
+-                        ),
++                const tshProperty = new TshProperty(
++                    (o.name as Identifier).text,
++                    getNodeVisibility(o),
++                    getNodeType(o.type),
++                    o.getStart(),
++                    o.getEnd(),
++                );
++                if (o.modifiers) {
++                    classDeclaration.properties.push(
++                        tshProperty,
+                     );
+                 }
+                 if (actualCount === classDeclaration.properties.length) {
+                     classDeclaration.properties.push(
+-                        new TshProperty(
+-                            (o.name as Identifier).text,
+-                            getNodeVisibility(o),
+-                            getNodeType(o.type),
+-                            o.getStart(),
+-                            o.getEnd(),
+-                        ),
++                        tshProperty,
+                     );
++                }
++                if (o.decorators) {
++                    tshProperty.decorators = parseDecorators(o);
+                 }
+                 return;
+             }
+@@ -198,6 +223,7 @@
+                     o.getEnd(),
+                 );
+                 method.parameters = parseMethodParams(o);
++                method.decorators = parseDecorators(o);
+                 classDeclaration.methods.push(method);
+                 parseFunctionParts(tsResource, method, o);
+             }
