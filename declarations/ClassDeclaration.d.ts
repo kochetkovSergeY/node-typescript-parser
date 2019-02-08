@@ -20,6 +20,8 @@ export declare class ClassDeclaration implements ClassLikeDeclaration, Exportabl
     end: number | undefined;
     ctor: ConstructorDeclaration;
     accessors: AccessorDeclaration[];
+    getters: AccessorDeclaration[];
+    setters: AccessorDeclaration[];
     decorators: DecoratorDeclaration[];
     properties: PropertyDeclaration[];
     methods: MethodDeclaration[];

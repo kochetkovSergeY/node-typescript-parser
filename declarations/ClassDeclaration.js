@@ -16,6 +16,8 @@ class ClassDeclaration {
         this.start = start;
         this.end = end;
         this.accessors = [];
+        this.getters = [];
+        this.setters = [];
         this.decorators = [];
         this.properties = [];
         this.methods = [];

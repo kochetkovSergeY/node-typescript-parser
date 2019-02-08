@@ -189,7 +189,7 @@ export function parseClass(tsResource: Resource, node: ClassDeclaration): void {
             }
 
             if (isGetAccessorDeclaration(o)) {
-                classDeclaration.accessors.push(
+                classDeclaration.getters.push(
                     new GetterDeclaration(
                         (o.name as Identifier).text,
                         getNodeVisibility(o),
@@ -203,7 +203,7 @@ export function parseClass(tsResource: Resource, node: ClassDeclaration): void {
             }
 
             if (isSetAccessorDeclaration(o)) {
-                classDeclaration.accessors.push(
+                classDeclaration.setters.push(
                     new SetterDeclaration(
                         (o.name as Identifier).text,
                         getNodeVisibility(o),

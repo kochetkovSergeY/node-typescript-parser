@@ -125,10 +125,10 @@ function parseClass(tsResource, node) {
                 return;
             }
             if (TypescriptGuards_1.isGetAccessorDeclaration(o)) {
-                classDeclaration.accessors.push(new AccessorDeclaration_1.GetterDeclaration(o.name.text, parse_utilities_1.getNodeVisibility(o), parse_utilities_1.getNodeType(o.type), o.modifiers !== undefined && o.modifiers.some(m => m.kind === typescript_1.SyntaxKind.AbstractKeyword), o.getStart(), o.getEnd()));
+                classDeclaration.getters.push(new AccessorDeclaration_1.GetterDeclaration(o.name.text, parse_utilities_1.getNodeVisibility(o), parse_utilities_1.getNodeType(o.type), o.modifiers !== undefined && o.modifiers.some(m => m.kind === typescript_1.SyntaxKind.AbstractKeyword), o.getStart(), o.getEnd()));
             }
             if (TypescriptGuards_1.isSetAccessorDeclaration(o)) {
-                classDeclaration.accessors.push(new AccessorDeclaration_1.SetterDeclaration(o.name.text, parse_utilities_1.getNodeVisibility(o), parse_utilities_1.getNodeType(o.type), o.modifiers !== undefined && o.modifiers.some(m => m.kind === typescript_1.SyntaxKind.AbstractKeyword), o.getStart(), o.getEnd()));
+                classDeclaration.setters.push(new AccessorDeclaration_1.SetterDeclaration(o.name.text, parse_utilities_1.getNodeVisibility(o), parse_utilities_1.getNodeType(o.type), o.modifiers !== undefined && o.modifiers.some(m => m.kind === typescript_1.SyntaxKind.AbstractKeyword), o.getStart(), o.getEnd()));
             }
             if (TypescriptGuards_1.isConstructorDeclaration(o)) {
                 const ctor = new ConstructorDeclaration_1.ConstructorDeclaration(classDeclaration.name, o.getStart(), o.getEnd());
