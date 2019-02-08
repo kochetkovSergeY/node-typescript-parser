@@ -16,3 +16,4 @@ tslib_1.__exportStar(require("./ParameterDeclaration"), exports);
 tslib_1.__exportStar(require("./PropertyDeclaration"), exports);
 tslib_1.__exportStar(require("./TypeAliasDeclaration"), exports);
 tslib_1.__exportStar(require("./VariableDeclaration"), exports);
+tslib_1.__exportStar(require("./DecoratorDeclaration"), exports);

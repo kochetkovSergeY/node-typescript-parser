@@ -14,3 +14,4 @@ export * from './ParameterDeclaration';
 export * from './PropertyDeclaration';
 export * from './TypeAliasDeclaration';
 export * from './VariableDeclaration';
+export * from './DecoratorDeclaration';
