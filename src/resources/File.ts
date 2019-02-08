@@ -8,6 +8,7 @@ import { normalizeFilename } from '../utilities/PathHelpers';
 import { Module } from './Module';
 import { Namespace } from './Namespace';
 import { Resource } from './Resource';
+import { ClassDeclaration, EnumDeclaration, InterfaceDeclaration } from '../declarations';
 
 /**
  * TypeScript resource. Basically a file that is located somewhere.
@@ -21,6 +22,9 @@ export class File implements Resource, Node {
     public imports: Import[] = [];
     public exports: Export[] = [];
     public declarations: Declaration[] = [];
+    public classes: ClassDeclaration[] = [];
+    public interfaces: InterfaceDeclaration[] = [];
+    public enums: EnumDeclaration[] = [];
     public resources: Resource[] = [];
     public usages: string[] = [];
 

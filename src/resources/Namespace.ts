@@ -4,6 +4,7 @@ import { Import } from '../imports/Import';
 import { Node } from '../Node';
 import { Module } from './Module';
 import { Resource } from './Resource';
+import { ClassDeclaration, EnumDeclaration, InterfaceDeclaration } from '../declarations';
 
 /**
  * TypeScript resource. Declaration of a typescript namespace (i.e. declare foobar).
@@ -17,6 +18,9 @@ export class Namespace implements Resource, Node {
     public imports: Import[] = [];
     public exports: Export[] = [];
     public declarations: Declaration[] = [];
+    public classes: ClassDeclaration[] = [];
+    public interfaces: InterfaceDeclaration[] = [];
+    public enums: EnumDeclaration[] = [];
     public resources: Resource[] = [];
     public usages: string[] = [];
 

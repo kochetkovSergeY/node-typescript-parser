@@ -17,6 +17,9 @@ class Namespace {
         this.imports = [];
         this.exports = [];
         this.declarations = [];
+        this.classes = [];
+        this.interfaces = [];
+        this.enums = [];
         this.resources = [];
         this.usages = [];
     }

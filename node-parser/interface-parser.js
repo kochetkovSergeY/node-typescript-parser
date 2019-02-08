@@ -37,6 +37,6 @@ function parseInterface(resource, node) {
     if (node.typeParameters) {
         interfaceDeclaration.typeParameters = node.typeParameters.map(param => param.getText());
     }
-    resource.declarations.push(interfaceDeclaration);
+    resource.interfaces.push(interfaceDeclaration);
 }
 exports.parseInterface = parseInterface;

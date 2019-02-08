@@ -1,6 +1,7 @@
 import { Declaration } from '../declarations/Declaration';
 import { Export } from '../exports/Export';
 import { Import } from '../imports/Import';
+import { ClassDeclaration, EnumDeclaration, InterfaceDeclaration } from '../declarations';
 
 /**
  * Base interface for resources. All resources share the same properties.
@@ -68,4 +69,10 @@ export interface Resource {
      * @memberof Resource
      */
     readonly nonLocalUsages: string[];
+
+    classes: ClassDeclaration[];
+
+    interfaces: InterfaceDeclaration[];
+
+    enums: EnumDeclaration[];
 }

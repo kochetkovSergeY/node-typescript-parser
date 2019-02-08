@@ -5,6 +5,7 @@ import { Export } from '../exports/Export';
 import { Import } from '../imports/Import';
 import { Node } from '../Node';
 import { Resource } from './Resource';
+import { ClassDeclaration, EnumDeclaration, InterfaceDeclaration } from '../declarations';
 /**
  * TypeScript resource. Basically a file that is located somewhere.
  *
@@ -21,6 +22,9 @@ export declare class File implements Resource, Node {
     imports: Import[];
     exports: Export[];
     declarations: Declaration[];
+    classes: ClassDeclaration[];
+    interfaces: InterfaceDeclaration[];
+    enums: EnumDeclaration[];
     resources: Resource[];
     usages: string[];
     readonly identifier: string;

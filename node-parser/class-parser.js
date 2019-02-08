@@ -146,6 +146,6 @@ function parseClass(tsResource, node) {
         });
     }
     parseClassIdentifiers(tsResource, node);
-    tsResource.declarations.push(classDeclaration);
+    tsResource.classes.push(classDeclaration);
 }
 exports.parseClass = parseClass;

@@ -16,5 +16,5 @@ export function parseEnum(resource: Resource, node: EnumDeclaration): void {
         node.name.text, isNodeExported(node), node.getStart(), node.getEnd(),
     );
     declaration.members = node.members.map(o => o.name.getText());
-    resource.declarations.push(declaration);
+    resource.enums.push(declaration);
 }

@@ -71,5 +71,5 @@ export function parseInterface(resource: Resource, node: InterfaceDeclaration): 
         interfaceDeclaration.typeParameters = node.typeParameters.map(param => param.getText());
     }
 
-    resource.declarations.push(interfaceDeclaration);
+    resource.interfaces.push(interfaceDeclaration);
 }
