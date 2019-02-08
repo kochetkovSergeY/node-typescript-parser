@@ -149,6 +149,17 @@ export function parseClass(tsResource: Resource, node: ClassDeclaration): void {
         tsResource.declarations.push(new TshDefault(classDeclaration.name, tsResource));
     }
 
+    if (node.heritageClauses) {
+        node.heritageClauses.forEach((clause) => {
+
+            if (clause.token === SyntaxKind.ExtendsKeyword) {
+                clause.types.forEach(type => classDeclaration.extendsClauses.push(type.getText()));
+            } else if (clause.token === SyntaxKind.ImplementsKeyword) {
+                clause.types.forEach(type => classDeclaration.implementsClauses.push(type.getText()));
+            }
+        });
+    }
+
     if (node.typeParameters) {
         classDeclaration.typeParameters = node.typeParameters.map(param => param.getText());
     }

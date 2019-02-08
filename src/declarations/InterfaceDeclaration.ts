@@ -16,6 +16,8 @@ export class InterfaceDeclaration implements ClassLikeDeclaration, ExportableDec
     public typeParameters: string[] | undefined;
     public properties: PropertyDeclaration[] = [];
     public methods: MethodDeclaration[] = [];
+    public extendsClauses: string[] = [];
+    public implementsClauses: string[] = [];
 
     constructor(
         public name: string,

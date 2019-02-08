@@ -23,6 +23,8 @@ export class ClassDeclaration implements ClassLikeDeclaration, ExportableDeclara
     public properties: PropertyDeclaration[] = [];
     public methods: MethodDeclaration[] = [];
     public typeParameters: string[] | undefined;
+    public extendsClauses: string[] = [];
+    public implementsClauses: string[] = [];
 
     constructor(
         public name: string,

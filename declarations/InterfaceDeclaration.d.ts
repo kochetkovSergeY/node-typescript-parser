@@ -19,5 +19,7 @@ export declare class InterfaceDeclaration implements ClassLikeDeclaration, Expor
     typeParameters: string[] | undefined;
     properties: PropertyDeclaration[];
     methods: MethodDeclaration[];
+    extendsClauses: string[];
+    implementsClauses: string[];
     constructor(name: string, isExported: boolean, start?: number | undefined, end?: number | undefined);
 }

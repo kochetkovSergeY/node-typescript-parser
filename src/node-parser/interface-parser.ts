@@ -35,6 +35,17 @@ export function parseInterface(resource: Resource, node: InterfaceDeclaration): 
         resource.declarations.push(new DefaultDeclaration(interfaceDeclaration.name, resource));
     }
 
+    if (node.heritageClauses) {
+        node.heritageClauses.forEach((clause) => {
+
+            if (clause.token === SyntaxKind.ExtendsKeyword) {
+                clause.types.forEach(type => interfaceDeclaration.extendsClauses.push(type.getText()));
+            } else if (clause.token === SyntaxKind.ImplementsKeyword) {
+                clause.types.forEach(type => interfaceDeclaration.implementsClauses.push(type.getText()));
+            }
+        });
+    }
+
     if (node.members) {
         node.members.forEach((o) => {
             if (isPropertySignature(o)) {

@@ -102,6 +102,16 @@ function parseClass(tsResource, node) {
         classDeclaration.isExported = false;
         tsResource.declarations.push(new DefaultDeclaration_1.DefaultDeclaration(classDeclaration.name, tsResource));
     }
+    if (node.heritageClauses) {
+        node.heritageClauses.forEach((clause) => {
+            if (clause.token === typescript_1.SyntaxKind.ExtendsKeyword) {
+                clause.types.forEach(type => classDeclaration.extendsClauses.push(type.getText()));
+            }
+            else if (clause.token === typescript_1.SyntaxKind.ImplementsKeyword) {
+                clause.types.forEach(type => classDeclaration.implementsClauses.push(type.getText()));
+            }
+        });
+    }
     if (node.typeParameters) {
         classDeclaration.typeParameters = node.typeParameters.map(param => param.getText());
     }

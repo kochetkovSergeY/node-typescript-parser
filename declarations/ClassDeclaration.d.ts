@@ -26,5 +26,7 @@ export declare class ClassDeclaration implements ClassLikeDeclaration, Exportabl
     properties: PropertyDeclaration[];
     methods: MethodDeclaration[];
     typeParameters: string[] | undefined;
+    extendsClauses: string[];
+    implementsClauses: string[];
     constructor(name: string, isExported: boolean, start?: number | undefined, end?: number | undefined);
 }

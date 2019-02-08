@@ -16,6 +16,8 @@ class InterfaceDeclaration {
         this.end = end;
         this.properties = [];
         this.methods = [];
+        this.extendsClauses = [];
+        this.implementsClauses = [];
     }
 }
 exports.InterfaceDeclaration = InterfaceDeclaration;

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const typescript_1 = require("typescript");
 const DefaultDeclaration_1 = require("../declarations/DefaultDeclaration");
 const InterfaceDeclaration_1 = require("../declarations/InterfaceDeclaration");
 const MethodDeclaration_1 = require("../declarations/MethodDeclaration");
@@ -21,6 +22,16 @@ function parseInterface(resource, node) {
     if (parse_utilities_1.isNodeDefaultExported(node)) {
         interfaceDeclaration.isExported = false;
         resource.declarations.push(new DefaultDeclaration_1.DefaultDeclaration(interfaceDeclaration.name, resource));
+    }
+    if (node.heritageClauses) {
+        node.heritageClauses.forEach((clause) => {
+            if (clause.token === typescript_1.SyntaxKind.ExtendsKeyword) {
+                clause.types.forEach(type => interfaceDeclaration.extendsClauses.push(type.getText()));
+            }
+            else if (clause.token === typescript_1.SyntaxKind.ImplementsKeyword) {
+                clause.types.forEach(type => interfaceDeclaration.implementsClauses.push(type.getText()));
+            }
+        });
     }
     if (node.members) {
         node.members.forEach((o) => {

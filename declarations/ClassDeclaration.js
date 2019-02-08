@@ -21,6 +21,8 @@ class ClassDeclaration {
         this.decorators = [];
         this.properties = [];
         this.methods = [];
+        this.extendsClauses = [];
+        this.implementsClauses = [];
     }
 }
 exports.ClassDeclaration = ClassDeclaration;
