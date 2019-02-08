@@ -10,6 +10,7 @@ import {
 import { DeclarationVisibility } from './DeclarationVisibility';
 import { ParameterDeclaration } from './ParameterDeclaration';
 import { VariableDeclaration } from './VariableDeclaration';
+import {DecoratorDeclaration} from "./DecoratorDeclaration";
 
 /**
  * Method declaration. A method is contained in an interface or a class.
@@ -30,6 +31,7 @@ export class MethodDeclaration implements
     StaticDeclaration,
     TypedDeclaration {
 
+    public decorators: DecoratorDeclaration[] = [];
     public parameters: ParameterDeclaration[] = [];
     public variables: VariableDeclaration[] = [];
 
