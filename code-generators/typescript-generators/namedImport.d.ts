@@ -8,4 +8,4 @@ import { TypescriptGenerationOptions } from '../TypescriptGenerationOptions';
  * @param {TypescriptGenerationOptions} { stringQuoteStyle, eol }
  * @returns {string}
  */
-export declare function generateNamedImport(imp: NamedImport, {eol, stringQuoteStyle, spaceBraces, tabSize, multiLineWrapThreshold, multiLineTrailingComma}: TypescriptGenerationOptions): string;
+export declare function generateNamedImport(imp: NamedImport, { eol, stringQuoteStyle, spaceBraces, tabSize, wrapMethod, multiLineWrapThreshold, multiLineTrailingComma, insertSpaces, }: TypescriptGenerationOptions): string;

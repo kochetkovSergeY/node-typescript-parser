@@ -9,7 +9,7 @@ import { Declaration } from './Declaration';
  */
 export declare class ModuleDeclaration implements Declaration {
     name: string;
-    start: number | undefined;
-    end: number | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
     constructor(name: string, start?: number | undefined, end?: number | undefined);
 }

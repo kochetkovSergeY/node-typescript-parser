@@ -9,8 +9,8 @@ import { ExportableDeclaration } from './Declaration';
 export declare class EnumDeclaration implements ExportableDeclaration {
     name: string;
     isExported: boolean;
-    start: number | undefined;
-    end: number | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
     members: string[];
     constructor(name: string, isExported: boolean, start?: number | undefined, end?: number | undefined);
 }

@@ -9,7 +9,7 @@ import { Clonable } from './clonable/Clonable';
  */
 export declare class SymbolSpecifier implements Clonable<SymbolSpecifier> {
     specifier: string;
-    alias: string | undefined;
+    alias?: string | undefined;
     constructor(specifier: string, alias?: string | undefined);
     /**
      * Clones the current resolve specifier and returns a new instance with the same properties.

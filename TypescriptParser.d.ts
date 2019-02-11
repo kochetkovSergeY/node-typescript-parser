@@ -52,7 +52,7 @@ export declare class TypescriptParser {
      *
      * @memberof TsResourceParser
      */
-    private parseTypescript(source, rootPath);
+    private parseTypescript;
     /**
      * Recursive function that runs through the AST of a source and parses the nodes.
      * Creates the class / function / etc declarations and instanciates a new module / namespace
@@ -64,5 +64,5 @@ export declare class TypescriptParser {
      *
      * @memberof TsResourceParser
      */
-    private parse(resource, node);
+    private parse;
 }

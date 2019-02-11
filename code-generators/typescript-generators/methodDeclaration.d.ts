@@ -8,4 +8,4 @@ import { TypescriptGenerationOptions } from '../TypescriptGenerationOptions';
  * @param {TypescriptGenerationOptions} { tabSize }
  * @returns {string}
  */
-export declare function generateMethodDeclaration(method: MethodDeclaration, {tabSize}: TypescriptGenerationOptions): string;
+export declare function generateMethodDeclaration(method: MethodDeclaration, { tabSize }: TypescriptGenerationOptions): string;

@@ -10,7 +10,7 @@ import { ExportableDeclaration } from './Declaration';
 export declare class TypeAliasDeclaration implements ExportableDeclaration {
     name: string;
     isExported: boolean;
-    start: number | undefined;
-    end: number | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
     constructor(name: string, isExported: boolean, start?: number | undefined, end?: number | undefined);
 }

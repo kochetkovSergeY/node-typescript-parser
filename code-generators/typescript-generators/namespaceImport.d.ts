@@ -8,4 +8,4 @@ import { TypescriptGenerationOptions } from '../TypescriptGenerationOptions';
  * @param {TypescriptGenerationOptions} { stringQuoteStyle, eol }
  * @returns {string}
  */
-export declare function generateNamespaceImport(imp: NamespaceImport, {stringQuoteStyle, eol}: TypescriptGenerationOptions): string;
+export declare function generateNamespaceImport(imp: NamespaceImport, { stringQuoteStyle, eol }: TypescriptGenerationOptions): string;

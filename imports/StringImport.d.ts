@@ -8,8 +8,8 @@ import { Import } from './Import';
  */
 export declare class StringImport implements Import {
     libraryName: string;
-    start: number | undefined;
-    end: number | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
     readonly isNew: boolean;
     constructor(libraryName: string, start?: number | undefined, end?: number | undefined);
     /**

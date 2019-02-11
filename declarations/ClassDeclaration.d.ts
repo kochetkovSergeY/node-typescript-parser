@@ -16,9 +16,9 @@ import { DecoratorDeclaration } from './DecoratorDeclaration';
 export declare class ClassDeclaration implements ClassLikeDeclaration, ExportableDeclaration, GenericDeclaration {
     name: string;
     isExported: boolean;
-    start: number | undefined;
-    end: number | undefined;
-    ctor: ConstructorDeclaration;
+    start?: number | undefined;
+    end?: number | undefined;
+    ctor: ConstructorDeclaration | undefined;
     accessors: AccessorDeclaration[];
     getters: AccessorDeclaration[];
     setters: AccessorDeclaration[];

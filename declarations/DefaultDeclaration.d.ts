@@ -12,8 +12,8 @@ import { Declaration, ExportableDeclaration } from './Declaration';
 export declare class DefaultDeclaration implements ExportableDeclaration {
     name: string;
     private resource;
-    start: number | undefined;
-    end: number | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
     readonly isExported: boolean;
     private exported;
     readonly exportedDeclaration: Declaration;

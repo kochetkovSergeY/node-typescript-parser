@@ -10,8 +10,8 @@ import { VariableDeclaration } from './VariableDeclaration';
  */
 export declare class ConstructorDeclaration implements CallableDeclaration {
     name: string;
-    start: number | undefined;
-    end: number | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
     parameters: ParameterDeclaration[];
     variables: VariableDeclaration[];
     constructor(name: string, start?: number | undefined, end?: number | undefined);

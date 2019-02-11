@@ -1,4 +1,4 @@
-import { ScopedDeclaration, TypedDeclaration } from './Declaration';
+import { OptionalDeclaration, ScopedDeclaration, StaticDeclaration, TypedDeclaration } from './Declaration';
 import { DeclarationVisibility } from './DeclarationVisibility';
 import { DecoratorDeclaration } from './DecoratorDeclaration';
 /**
@@ -9,12 +9,14 @@ import { DecoratorDeclaration } from './DecoratorDeclaration';
  * @implements {ScopedDeclaration}
  * @implements {TypedDeclaration}
  */
-export declare class PropertyDeclaration implements ScopedDeclaration, TypedDeclaration {
+export declare class PropertyDeclaration implements OptionalDeclaration, ScopedDeclaration, StaticDeclaration, TypedDeclaration {
     name: string;
     visibility: DeclarationVisibility | undefined;
     type: string | undefined;
-    start: number | undefined;
-    end: number | undefined;
+    isOptional: boolean;
+    isStatic: boolean;
+    start?: number | undefined;
+    end?: number | undefined;
     decorators: DecoratorDeclaration[];
-    constructor(name: string, visibility: DeclarationVisibility | undefined, type: string | undefined, start?: number | undefined, end?: number | undefined);
+    constructor(name: string, visibility: DeclarationVisibility | undefined, type: string | undefined, isOptional: boolean, isStatic: boolean, start?: number | undefined, end?: number | undefined);
 }

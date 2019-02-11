@@ -8,4 +8,4 @@ import { TypescriptGenerationOptions } from '../TypescriptGenerationOptions';
  * @param {TypescriptGenerationOptions} { tabSize }
  * @returns {string}
  */
-export declare function generatePropertyDeclaration(property: PropertyDeclaration, {tabSize}: TypescriptGenerationOptions): string;
+export declare function generatePropertyDeclaration(property: PropertyDeclaration, { tabSize }: TypescriptGenerationOptions): string;

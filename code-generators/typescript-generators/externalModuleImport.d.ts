@@ -8,4 +8,4 @@ import { TypescriptGenerationOptions } from '../TypescriptGenerationOptions';
  * @param {TypescriptGenerationOptions} { stringQuoteStyle, eol }
  * @returns {string}
  */
-export declare function generateExternalModuleImport(imp: ExternalModuleImport, {stringQuoteStyle, eol}: TypescriptGenerationOptions): string;
+export declare function generateExternalModuleImport(imp: ExternalModuleImport, { stringQuoteStyle, eol }: TypescriptGenerationOptions): string;

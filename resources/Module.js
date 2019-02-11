@@ -45,9 +45,7 @@ class Module {
             if (idx === 0) {
                 return all + cur.toLowerCase();
             }
-            else {
-                return all + cur.charAt(0).toUpperCase() + cur.substring(1).toLowerCase();
-            }
+            return all + cur.charAt(0).toUpperCase() + cur.substring(1).toLowerCase();
         }, '');
     }
 }

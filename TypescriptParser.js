@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const fs_1 = require("fs");
-const typescript_1 = require("typescript");
 const path_1 = require("path");
+const typescript_1 = require("typescript");
 const class_parser_1 = require("./node-parser/class-parser");
 const enum_parser_1 = require("./node-parser/enum-parser");
 const export_parser_1 = require("./node-parser/export-parser");
@@ -12,6 +12,7 @@ const identifier_parser_1 = require("./node-parser/identifier-parser");
 const import_parser_1 = require("./node-parser/import-parser");
 const interface_parser_1 = require("./node-parser/interface-parser");
 const module_parser_1 = require("./node-parser/module-parser");
+const traverse_ast_1 = require("./node-parser/traverse-ast");
 const type_alias_parser_1 = require("./node-parser/type-alias-parser");
 const variable_parser_1 = require("./node-parser/variable-parser");
 const File_1 = require("./resources/File");
@@ -117,46 +118,60 @@ class TypescriptParser {
      *
      * @memberof TsResourceParser
      */
-    parse(resource, node) {
-        for (const child of node.getChildren()) {
-            switch (child.kind) {
-                case typescript_1.SyntaxKind.ImportDeclaration:
-                case typescript_1.SyntaxKind.ImportEqualsDeclaration:
-                    import_parser_1.parseImport(resource, child);
-                    break;
-                case typescript_1.SyntaxKind.ExportDeclaration:
-                case typescript_1.SyntaxKind.ExportAssignment:
-                    export_parser_1.parseExport(resource, child);
-                    break;
-                case typescript_1.SyntaxKind.EnumDeclaration:
-                    enum_parser_1.parseEnum(resource, child);
-                    break;
-                case typescript_1.SyntaxKind.TypeAliasDeclaration:
-                    type_alias_parser_1.parseTypeAlias(resource, child);
-                    break;
-                case typescript_1.SyntaxKind.FunctionDeclaration:
-                    function_parser_1.parseFunction(resource, child);
-                    continue;
-                case typescript_1.SyntaxKind.VariableStatement:
-                    variable_parser_1.parseVariable(resource, child);
-                    break;
-                case typescript_1.SyntaxKind.InterfaceDeclaration:
-                    interface_parser_1.parseInterface(resource, child);
-                    break;
-                case typescript_1.SyntaxKind.ClassDeclaration:
-                    class_parser_1.parseClass(resource, child);
-                    continue;
-                case typescript_1.SyntaxKind.Identifier:
-                    identifier_parser_1.parseIdentifier(resource, child);
-                    break;
-                case typescript_1.SyntaxKind.ModuleDeclaration:
-                    const newResource = module_parser_1.parseModule(resource, child);
-                    this.parse(newResource, child);
-                    continue;
-                default:
-                    break;
-            }
-            this.parse(resource, child);
+    parse(resource, root) {
+        const modules = [{ moduleRoot: root, moduleResource: resource }];
+        for (let iter = modules.shift(); iter !== undefined; iter = modules.shift()) {
+            const { moduleRoot, moduleResource } = iter;
+            traverse_ast_1.traverseAst(moduleRoot, (node) => {
+                switch (node.kind) {
+                    case typescript_1.SyntaxKind.ImportDeclaration:
+                    case typescript_1.SyntaxKind.ImportEqualsDeclaration:
+                        import_parser_1.parseImport(moduleResource, node);
+                        break;
+                    case typescript_1.SyntaxKind.ExportDeclaration:
+                    case typescript_1.SyntaxKind.ExportAssignment:
+                        export_parser_1.parseExport(moduleResource, node);
+                        break;
+                    case typescript_1.SyntaxKind.EnumDeclaration:
+                        enum_parser_1.parseEnum(moduleResource, node);
+                        break;
+                    case typescript_1.SyntaxKind.TypeAliasDeclaration:
+                        type_alias_parser_1.parseTypeAlias(moduleResource, node);
+                        break;
+                    case typescript_1.SyntaxKind.FunctionDeclaration:
+                        function_parser_1.parseFunction(moduleResource, node);
+                        break;
+                    case typescript_1.SyntaxKind.VariableStatement:
+                        variable_parser_1.parseVariable(moduleResource, node);
+                        break;
+                    case typescript_1.SyntaxKind.InterfaceDeclaration:
+                        interface_parser_1.parseInterface(moduleResource, node);
+                        break;
+                    case typescript_1.SyntaxKind.ClassDeclaration:
+                        class_parser_1.parseClass(moduleResource, node);
+                        break;
+                    case typescript_1.SyntaxKind.Identifier:
+                        identifier_parser_1.parseIdentifier(moduleResource, node);
+                        break;
+                    case typescript_1.SyntaxKind.ModuleDeclaration:
+                        modules.push({
+                            moduleRoot: node,
+                            moduleResource: module_parser_1.parseModule(moduleResource, node),
+                        });
+                        break;
+                    default:
+                        break;
+                }
+            }, (node) => {
+                switch (node.kind) {
+                    case typescript_1.SyntaxKind.ClassDeclaration:
+                    case typescript_1.SyntaxKind.ModuleDeclaration:
+                    case typescript_1.SyntaxKind.FunctionDeclaration:
+                        return true;
+                    default:
+                        return false;
+                }
+            });
         }
     }
 }

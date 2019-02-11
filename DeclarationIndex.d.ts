@@ -132,7 +132,7 @@ export declare class DeclarationIndex {
      *
      * @memberof DeclarationIndex
      */
-    private getExportedResources(resourceToCheck);
+    private getExportedResources;
     /**
      * Checks if a file does export another resource.
      * (i.e. export ... from ...)
@@ -144,7 +144,7 @@ export declare class DeclarationIndex {
      *
      * @memberof DeclarationIndex
      */
-    private doesExportResource(resource, resourcePath);
+    private doesExportResource;
     /**
      * Does parse the resources (symbols and declarations) of a given file.
      * Can be cancelled with the token.
@@ -155,7 +155,7 @@ export declare class DeclarationIndex {
      *
      * @memberof DeclarationIndex
      */
-    private parseResources(files?);
+    private parseResources;
     /**
      * Creates a reverse index out of the give resources.
      * Can be cancelled with the token.
@@ -166,7 +166,7 @@ export declare class DeclarationIndex {
      *
      * @memberof DeclarationIndex
      */
-    private createIndex(resources);
+    private createIndex;
     /**
      * Process all exports of a the parsed resources. Does move the declarations accordingly to their
      * export nature.
@@ -179,7 +179,7 @@ export declare class DeclarationIndex {
      *
      * @memberof DeclarationIndex
      */
-    private processResourceExports(parsedResources, resource, processedResources?);
+    private processResourceExports;
     /**
      * Processes an all export, does move the declarations accordingly.
      * (i.e. export * from './myFile')
@@ -190,7 +190,7 @@ export declare class DeclarationIndex {
      *
      * @memberof DeclarationIndex
      */
-    private processAllFromExport(exportingLib, exportedLib);
+    private processAllFromExport;
     /**
      * Processes a named export, does move the declarations accordingly.
      * (i.e. export {MyClass} from './myFile')
@@ -202,7 +202,7 @@ export declare class DeclarationIndex {
      *
      * @memberof DeclarationIndex
      */
-    private processNamedFromExport(tsExport, exportingLib, exportedLib);
+    private processNamedFromExport;
     /**
      * Processes an assigned export, does move the declarations accordingly.
      * (i.e. export = namespaceName)
@@ -213,5 +213,5 @@ export declare class DeclarationIndex {
      *
      * @memberof DeclarationIndex
      */
-    private processAssignedExport(tsExport, exportingLib);
+    private processAssignedExport;
 }

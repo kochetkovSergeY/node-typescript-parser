@@ -12,7 +12,7 @@ export declare class VariableDeclaration implements ExportableDeclaration, Typed
     isConst: boolean;
     isExported: boolean;
     type: string | undefined;
-    start: number | undefined;
-    end: number | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
     constructor(name: string, isConst: boolean, isExported: boolean, type: string | undefined, start?: number | undefined, end?: number | undefined);
 }

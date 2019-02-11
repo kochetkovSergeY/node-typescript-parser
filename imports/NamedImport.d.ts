@@ -12,8 +12,8 @@ import { Import } from './Import';
  */
 export declare class NamedImport implements Import {
     libraryName: string;
-    start: number | undefined;
-    end: number | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
     specifiers: SymbolSpecifier[];
     defaultAlias?: string;
     readonly isNew: boolean;

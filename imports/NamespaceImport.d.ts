@@ -9,8 +9,8 @@ import { AliasedImport } from './Import';
 export declare class NamespaceImport implements AliasedImport {
     libraryName: string;
     alias: string;
-    start: number | undefined;
-    end: number | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
     readonly isNew: boolean;
     constructor(libraryName: string, alias: string, start?: number | undefined, end?: number | undefined);
     /**
